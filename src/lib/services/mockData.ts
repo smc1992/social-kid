@@ -1,0 +1,235 @@
+import { Project } from "@/types";
+
+export const SAMPLE_PROJECTS: Project[] = [
+  {
+    id: "proj_astronaut_demo",
+    title: "Der kleine Astronaut 🚀",
+    topic: "Reise durch die Sterne und Planeten",
+    targetAge: "4-6",
+    language: "de",
+    genre: "catchy-pop",
+    vocalStyle: "female-sweet",
+    mood: "Fröhlich, Abenteuerlustig, Energetisch",
+    lyrics: `[Verse 1]
+Zieh den Raumanzug geschwind jetzt an,
+weil die Reise zu den Sternen starten kann!
+Drei, zwei, eins – und wir heben ab,
+durch die Wolken geht es steil bergauf!
+
+[Chorus]
+Flieg, kleiner Astronaut, weit ins All hinaus,
+sieh die leuchtend bunten Sterne, siehst du unser Haus?
+Dreh dich um die Erde, wink dem Mond noch zu,
+Astronauten-Freunde, ich und du!
+
+[Verse 2]
+Auf dem Mars da bauen wir ein Schloss aus Sand,
+im bunten Sternenstaub am Himmelsrand.
+Kometen sausen schnell wie eine Eisenbahn,
+schau mal wie der große Bär jetzt lachen kann!
+
+[Chorus]
+Flieg, kleiner Astronaut, weit ins All hinaus,
+sieh die leuchtend bunten Sterne, siehst du unser Haus?
+Dreh dich um die Erde, wink dem Mond noch zu,
+Astronauten-Freunde, ich und du!`,
+    audioUrl: "https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg", // placeholder demo audio
+    audioDuration: 42,
+    tracks: [
+      {
+        id: "track_astro_1",
+        title: "Der kleine Astronaut (Suno V5 Mix)",
+        audioUrl: "https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg",
+        duration: 42,
+        provider: "kie-suno",
+        modelUsed: "suno-v5",
+        createdAt: new Date().toISOString(),
+      },
+    ],
+    selectedTrackId: "track_astro_1",
+    aspectRatio: "16:9",
+    captionStyle: "bouncing-ball",
+    captionFont: "Fredoka",
+    particleEffect: "stars",
+    transitionEffect: "smooth-crossfade",
+    channelName: "Social Kid",
+    showWatermark: true,
+    showSubscribeOutro: true,
+    thumbnailUrl: "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=1280&auto=format&fit=crop&q=80",
+    scenes: [
+      {
+        id: "sc_1",
+        index: 0,
+        startTime: 0,
+        endTime: 10,
+        textSnippet: "Zieh den Raumanzug geschwind jetzt an, weil die Reise zu den Sternen starten kann!",
+        visualPrompt: "Cute 3D Pixar little astronaut boy in white futuristic suit waving excitedly near a rocket ship, launchpad, blue sky, vibrant colors",
+        style: "pixar-3d",
+        imageUrl: "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=1200&auto=format&fit=crop&q=80",
+        status: "ready",
+        motionType: "zoom-in",
+      },
+      {
+        id: "sc_2",
+        index: 1,
+        startTime: 10,
+        endTime: 21,
+        textSnippet: "Flieg, kleiner Astronaut, weit ins All hinaus! Sieh die leuchtend bunten Sterne!",
+        visualPrompt: "Magical 3D space scene with glowing colorful planets, smiling cartoon moon, friendly little astronaut floating with music notes",
+        style: "pixar-3d",
+        imageUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&auto=format&fit=crop&q=80",
+        status: "ready",
+        motionType: "pan-left",
+      },
+      {
+        id: "sc_3",
+        index: 2,
+        startTime: 21,
+        endTime: 31,
+        textSnippet: "Auf dem Mars da bauen wir ein Schloss aus Sand, im bunten Sternenstaub am Himmelsrand!",
+        visualPrompt: "Playful red planet Mars landscape with cute sandcastles, smiling baby alien and happy astronaut dancing together, 3D Disney look",
+        style: "pixar-3d",
+        imageUrl: "https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=1200&auto=format&fit=crop&q=80",
+        status: "ready",
+        motionType: "zoom-out",
+      },
+      {
+        id: "sc_4",
+        index: 3,
+        startTime: 31,
+        endTime: 42,
+        textSnippet: "Dreh dich um die Erde, wink dem Mond noch zu: Astronauten-Freunde, ich und du!",
+        visualPrompt: "Spectacular glowing rainbow galaxy with smiling stars and happy kids dancing together in space suits, fireworks and confetti",
+        style: "pixar-3d",
+        imageUrl: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=1200&auto=format&fit=crop&q=80",
+        status: "ready",
+        motionType: "gentle-drift",
+      },
+    ],
+    captions: [
+      {
+        id: "cap_1",
+        text: "Zieh den Raumanzug geschwind jetzt an",
+        start: 0.5,
+        end: 4.8,
+        words: [
+          { id: "w1", word: "Zieh", start: 0.5, end: 1.1 },
+          { id: "w2", word: "den", start: 1.2, end: 1.6 },
+          { id: "w3", word: "Raumanzug", start: 1.7, end: 2.8 },
+          { id: "w4", word: "geschwind", start: 2.9, end: 3.7 },
+          { id: "w5", word: "jetzt", start: 3.8, end: 4.2 },
+          { id: "w6", word: "an!", start: 4.3, end: 4.8 },
+        ],
+      },
+      {
+        id: "cap_2",
+        text: "weil die Reise zu den Sternen starten kann!",
+        start: 5.0,
+        end: 9.8,
+        words: [
+          { id: "w7", word: "weil", start: 5.0, end: 5.5 },
+          { id: "w8", word: "die", start: 5.6, end: 6.0 },
+          { id: "w9", word: "Reise", start: 6.1, end: 6.9 },
+          { id: "w10", word: "zu", start: 7.0, end: 7.3 },
+          { id: "w11", word: "den", start: 7.4, end: 7.8 },
+          { id: "w12", word: "Sternen", start: 7.9, end: 8.8 },
+          { id: "w13", word: "starten", start: 8.9, end: 9.3 },
+          { id: "w14", word: "kann!", start: 9.4, end: 9.8 },
+        ],
+      },
+      {
+        id: "cap_3",
+        text: "Flieg, kleiner Astronaut, weit ins All hinaus!",
+        start: 10.2,
+        end: 15.5,
+        words: [
+          { id: "w15", word: "Flieg,", start: 10.2, end: 11.0 },
+          { id: "w16", word: "kleiner", start: 11.1, end: 11.9 },
+          { id: "w17", word: "Astronaut,", start: 12.0, end: 13.2 },
+          { id: "w18", word: "weit", start: 13.3, end: 13.8 },
+          { id: "w19", word: "ins", start: 13.9, end: 14.3 },
+          { id: "w20", word: "All", start: 14.4, end: 14.9 },
+          { id: "w21", word: "hinaus!", start: 15.0, end: 15.5 },
+        ],
+      },
+      {
+        id: "cap_4",
+        text: "sieh die leuchtend bunten Sterne, siehst du unser Haus?",
+        start: 15.8,
+        end: 20.8,
+        words: [
+          { id: "w22", word: "sieh", start: 15.8, end: 16.3 },
+          { id: "w23", word: "die", start: 16.4, end: 16.7 },
+          { id: "w24", word: "leuchtend", start: 16.8, end: 17.6 },
+          { id: "w25", word: "bunten", start: 17.7, end: 18.4 },
+          { id: "w26", word: "Sterne,", start: 18.5, end: 19.3 },
+          { id: "w27", word: "siehst", start: 19.4, end: 19.9 },
+          { id: "w28", word: "du", start: 20.0, end: 20.3 },
+          { id: "w29", word: "unser", start: 20.4, end: 20.6 },
+          { id: "w30", word: "Haus?", start: 20.7, end: 20.8 },
+        ],
+      },
+      {
+        id: "cap_5",
+        text: "Auf dem Mars da bauen wir ein Schloss aus Sand",
+        start: 21.2,
+        end: 26.0,
+        words: [
+          { id: "w31", word: "Auf", start: 21.2, end: 21.6 },
+          { id: "w32", word: "dem", start: 21.7, end: 22.0 },
+          { id: "w33", word: "Mars", start: 22.1, end: 22.8 },
+          { id: "w34", word: "da", start: 22.9, end: 23.3 },
+          { id: "w35", word: "bauen", start: 23.4, end: 24.1 },
+          { id: "w36", word: "wir", start: 24.2, end: 24.5 },
+          { id: "w37", word: "ein", start: 24.6, end: 24.8 },
+          { id: "w38", word: "Schloss", start: 24.9, end: 25.5 },
+          { id: "w39", word: "aus", start: 25.6, end: 25.8 },
+          { id: "w40", word: "Sand!", start: 25.9, end: 26.0 },
+        ],
+      },
+      {
+        id: "cap_6",
+        text: "Dreh dich um die Erde, wink dem Mond noch zu!",
+        start: 31.5,
+        end: 37.0,
+        words: [
+          { id: "w41", word: "Dreh", start: 31.5, end: 32.1 },
+          { id: "w42", word: "dich", start: 32.2, end: 32.6 },
+          { id: "w43", word: "um", start: 32.7, end: 33.0 },
+          { id: "w44", word: "die", start: 33.1, end: 33.4 },
+          { id: "w45", word: "Erde,", start: 33.5, end: 34.3 },
+          { id: "w46", word: "wink", start: 34.4, end: 34.9 },
+          { id: "w47", word: "dem", start: 35.0, end: 35.3 },
+          { id: "w48", word: "Mond", start: 35.4, end: 36.2 },
+          { id: "w49", word: "noch", start: 36.3, end: 36.6 },
+          { id: "w50", word: "zu!", start: 36.7, end: 37.0 },
+        ],
+      },
+      {
+        id: "cap_7",
+        text: "Astronauten-Freunde, ich und du! ⭐",
+        start: 37.5,
+        end: 42.0,
+        words: [
+          { id: "w51", word: "Astronauten-Freunde,", start: 37.5, end: 39.4 },
+          { id: "w52", word: "ich", start: 39.5, end: 40.0 },
+          { id: "w53", word: "und", start: 40.1, end: 40.6 },
+          { id: "w54", word: "du!", start: 40.7, end: 42.0 },
+        ],
+      },
+    ],
+    youtubeSeo: {
+      title: "🎵 Der kleine Astronaut 🚀 | Fröhliches Kinderlied zum Mitsingen (4-6 Jahre)",
+      description: `🎶 Flieg mit uns ins Weltall! Ein wunderschönes Kinderlied über den kleinen Astronauten, Sterne und Planeten.
+      
+Mit bunten Bildern und Karaoke-Texten zum Mitsingen!
+#Kinderlieder #Weltall #Kindersongs #Mitsingen`,
+      tags: ["kinderlieder", "weltall", "astronaut", "kindersongs", "lieder zum mitsingen", "karaoke kinder"],
+      hashtags: ["#Kinderlieder", "#Weltall", "#Kindersongs", "#Kinderkanal"],
+      thumbnailPrompt: "Cute 3D Pixar little astronaut smiling in glowing colorful galaxy with rocket ship, large joyful bubble font",
+      targetKeywords: ["Kinderlied Astronaut", "Weltall Lied Kinder", "Lieder zum Mitsingen"],
+    },
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+];
