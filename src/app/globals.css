@@ -24,20 +24,20 @@ body {
    LIGHT / WHITE MODE - COMPLETE ULTRA-LEGIBLE OVERHAUL
    ========================================================= */
 body.theme-light {
-  background-color: #f4f6fb !important;
+  background-color: #f8fafc !important;
   color: #0f172a !important;
   background-image: 
-    radial-gradient(circle at 15% 10%, rgba(224, 231, 255, 0.9) 0%, transparent 50%),
-    radial-gradient(circle at 85% 15%, rgba(253, 232, 242, 0.9) 0%, transparent 50%),
-    radial-gradient(circle at 50% 60%, rgba(254, 249, 195, 0.7) 0%, transparent 55%),
-    radial-gradient(circle at 75% 90%, rgba(224, 242, 254, 0.8) 0%, transparent 50%) !important;
+    radial-gradient(circle at 15% 10%, rgba(224, 231, 255, 0.7) 0%, transparent 50%),
+    radial-gradient(circle at 85% 15%, rgba(253, 232, 242, 0.7) 0%, transparent 50%),
+    radial-gradient(circle at 50% 60%, rgba(254, 249, 195, 0.5) 0%, transparent 55%),
+    radial-gradient(circle at 75% 90%, rgba(224, 242, 254, 0.6) 0%, transparent 50%) !important;
 }
 
 /* Navbar in Light Mode */
 body.theme-light header > div {
-  background: rgba(255, 255, 255, 0.92) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
   border-color: rgba(226, 232, 240, 0.9) !important;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06) !important;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05) !important;
 }
 body.theme-light header nav {
   background: #f1f5f9 !important;
@@ -56,21 +56,16 @@ body.theme-light header nav button div.bg-slate-800 {
 }
 
 /* Hero Banners in Light Mode */
-body.theme-light [class*="bg-gradient-to-r"][class*="950"] {
-  background: linear-gradient(to right, #ffffff, #fdf4ff, #eef2ff) !important;
+body.theme-light [class*="rounded-3xl"][class*="shadow-"] {
   border-color: #e2e8f0 !important;
-  box-shadow: 0 15px 35px rgba(99, 102, 241, 0.08) !important;
 }
-body.theme-light [class*="bg-gradient-to-r"][class*="950"] h1 {
+body.theme-light [class*="rounded-3xl"] h1,
+body.theme-light [class*="rounded-3xl"] h2 {
   color: #0f172a !important;
 }
-body.theme-light [class*="bg-gradient-to-r"][class*="950"] p {
+body.theme-light [class*="rounded-3xl"] p {
   color: #334155 !important;
   font-weight: 500 !important;
-}
-body.theme-light [class*="bg-gradient-to-r"][class*="950"] span.text-slate-400 {
-  color: #64748b !important;
-  font-weight: 600 !important;
 }
 
 /* Cards & Workstation Panels in Light Mode */
@@ -79,7 +74,7 @@ body.theme-light [class*="bg-slate-950"] {
   background-color: #ffffff !important;
   border-color: #e2e8f0 !important;
   color: #0f172a !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03) !important;
 }
 
 /* Unselected Theme & Style Cards */
@@ -113,7 +108,7 @@ body.theme-light h4 {
   color: #0f172a !important;
 }
 
-body.theme-light .text-white {
+body.theme-light .text-white:not(button):not(button *):not(a):not(a *):not(.bg-gradient-to-r *):not([class*="badge"]) {
   color: #0f172a !important;
 }
 
@@ -131,23 +126,27 @@ body.theme-light .text-slate-500 {
   color: #64748b !important;
 }
 
-/* Keep pure white text on solid/gradient colored buttons! */
-body.theme-light [class*="bg-gradient-to-r"]:not([class*="950"]):not([class*="500/20"]):not([class*="400/20"]) {
+/* Specific Solid Action Buttons in Light Mode: Pure White Text */
+body.theme-light button.bg-gradient-to-r,
+body.theme-light a.bg-gradient-to-r,
+body.theme-light button[class*="from-amber-400"],
+body.theme-light button[class*="from-indigo-600"],
+body.theme-light button[class*="from-pink-500"],
+body.theme-light button[class*="bg-indigo-600"],
+body.theme-light button[class*="bg-pink-600"],
+body.theme-light button[class*="bg-emerald-600"],
+body.theme-light a[class*="bg-emerald-600"] {
   color: #ffffff !important;
 }
-body.theme-light [class*="bg-gradient-to-r"]:not([class*="950"]):not([class*="500/20"]):not([class*="400/20"]) * {
-  color: #ffffff !important;
-}
-body.theme-light button.bg-indigo-600,
-body.theme-light button.bg-pink-600,
-body.theme-light button.bg-emerald-600,
-body.theme-light a.bg-emerald-600 {
-  color: #ffffff !important;
-}
-body.theme-light button.bg-indigo-600 *,
-body.theme-light button.bg-pink-600 *,
-body.theme-light button.bg-emerald-600 *,
-body.theme-light a.bg-emerald-600 * {
+body.theme-light button.bg-gradient-to-r *,
+body.theme-light a.bg-gradient-to-r *,
+body.theme-light button[class*="from-amber-400"] *,
+body.theme-light button[class*="from-indigo-600"] *,
+body.theme-light button[class*="from-pink-500"] *,
+body.theme-light button[class*="bg-indigo-600"] *,
+body.theme-light button[class*="bg-pink-600"] *,
+body.theme-light button[class*="bg-emerald-600"] *,
+body.theme-light a[class*="bg-emerald-600"] * {
   color: #ffffff !important;
 }
 

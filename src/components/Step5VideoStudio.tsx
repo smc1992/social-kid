@@ -47,8 +47,10 @@ export const Step5VideoStudio: React.FC = () => {
     setRenderingVideo,
     showToast,
     saveCurrentProjectToDb,
+    theme,
   } = useProjectStore();
 
+  const isLight = theme === "light";
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [isGeneratingSeo, setIsGeneratingSeo] = useState(false);
   const [isGeneratingThumb, setIsGeneratingThumb] = useState(false);
@@ -241,24 +243,36 @@ Generiert mit Social Kid Studio 🚀
   return (
     <div className="space-y-8 animate-fadeIn max-w-6xl mx-auto">
       {/* Hero Banner */}
-      <div className="relative overflow-hidden rounded-3xl p-6 sm:p-8 bg-gradient-to-r from-indigo-950/80 via-purple-950/60 to-slate-950 border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+      <div className={`relative overflow-hidden rounded-3xl p-6 sm:p-8 border shadow-xl ${
+        isLight
+          ? "bg-gradient-to-r from-white via-cyan-50/40 to-indigo-50/50 border-slate-200/80 shadow-slate-200/50"
+          : "bg-gradient-to-r from-indigo-950/80 via-purple-950/60 to-slate-950 border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+      }`}>
         <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 rounded-full bg-cyan-500/20 blur-3xl pointer-events-none" />
 
         <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="space-y-3">
             <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-cyan-400/20 to-indigo-500/20 border border-cyan-400/40 text-cyan-300 text-xs font-black uppercase tracking-wider">
+              <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider ${
+                isLight
+                  ? "bg-cyan-100 border border-cyan-300 text-cyan-800"
+                  : "bg-gradient-to-r from-cyan-400/20 to-indigo-500/20 border border-cyan-400/40 text-cyan-300"
+              }`}>
                 <Video className="w-3.5 h-3.5" /> Phase 5: Video Studio
               </span>
-              <span className="text-xs font-semibold text-slate-400">
+              <span className={`text-xs font-semibold ${isLight ? "text-slate-600 font-bold" : "text-slate-400"}`}>
                 Remotion Engine & YouTube Creator Kit
               </span>
             </div>
 
-            <h1 className="font-fredoka text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-wide">
+            <h1 className={`font-fredoka text-3xl sm:text-4xl lg:text-5xl font-black tracking-wide ${
+              isLight ? "text-slate-900" : "text-white"
+            }`}>
               Remotion Video Studio & <span className="gradient-text-rainbow">YouTube Kit</span>
             </h1>
-            <p className="text-sm text-slate-300 max-w-2xl leading-relaxed">
+            <p className={`text-sm max-w-2xl leading-relaxed ${
+              isLight ? "text-slate-700 font-medium" : "text-slate-300"
+            }`}>
               Erlebe dein fertiges Musikvideo mit Ken-Burns-Kamerafahrten, magischen Partikeln, Szenen-Transitions und Sing-Along Untertiteln in voller Bildrate.
             </p>
           </div>
@@ -267,17 +281,21 @@ Generiert mit Social Kid Studio 🚀
             <button
               onClick={handleExportZipPackage}
               disabled={isExportingZip}
-              className="flex items-center gap-2 px-6 py-4 rounded-2xl bg-slate-900 border border-white/10 hover:border-amber-400 text-white font-black text-xs shadow-lg transition hover:scale-105 active:scale-95 disabled:opacity-50 cursor-pointer"
+              className={`flex items-center gap-2 px-6 py-4 rounded-2xl border font-black text-xs shadow-lg transition hover:scale-105 active:scale-95 disabled:opacity-50 cursor-pointer ${
+                isLight
+                  ? "bg-white border-slate-200 text-slate-800 hover:bg-slate-50 hover:border-amber-400"
+                  : "bg-slate-900 border-white/10 hover:border-amber-400 text-white"
+              }`}
               title="Alle YouTube-Dateien in einem ZIP herunterladen"
             >
               {isExportingZip ? (
                 <>
-                  <RefreshCw className="w-4 h-4 animate-spin text-amber-400" />
+                  <RefreshCw className="w-4 h-4 animate-spin text-amber-500" />
                   <span>Packe ZIP...</span>
                 </>
               ) : (
                 <>
-                  <Package className="w-4 h-4 text-amber-400" />
+                  <Package className="w-4 h-4 text-amber-500" />
                   <span>📦 Creator ZIP-Paket</span>
                 </>
               )}
@@ -308,17 +326,25 @@ Generiert mit Social Kid Studio 🚀
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left Column: Remotion Live Player (7 cols) */}
         <div className="lg:col-span-7 space-y-5">
-          <div className="p-6 rounded-3xl bg-slate-900/80 backdrop-blur-xl border border-white/10 space-y-5 shadow-2xl">
+          <div className={`p-6 rounded-3xl border space-y-5 shadow-2xl ${
+            isLight
+              ? "bg-white border-slate-200/80 shadow-slate-200/50"
+              : "bg-slate-900/80 backdrop-blur-xl border-white/10 shadow-2xl"
+          }`}>
             {/* Format & Particles Selector Bar */}
-            <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-white/10">
+            <div className={`flex flex-wrap items-center justify-between gap-3 pb-4 border-b ${
+              isLight ? "border-slate-200" : "border-white/10"
+            }`}>
               {/* Aspect Ratio Switcher */}
-              <div className="flex items-center gap-1.5 bg-slate-950 p-1.5 rounded-2xl border border-white/10">
+              <div className={`flex items-center gap-1.5 p-1.5 rounded-2xl border ${
+                isLight ? "bg-slate-100 border-slate-200" : "bg-slate-950 border-white/10"
+              }`}>
                 <button
                   onClick={() => updateCurrentProject({ aspectRatio: "16:9" })}
                   className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
                     currentProject.aspectRatio === "16:9"
                       ? "bg-indigo-600 text-white shadow-md shadow-indigo-500/30 scale-[1.02]"
-                      : "text-slate-400 hover:text-white"
+                      : isLight ? "text-slate-600 hover:text-slate-900" : "text-slate-400 hover:text-white"
                   }`}
                 >
                   <Tv className="w-3.5 h-3.5" />
@@ -329,7 +355,7 @@ Generiert mit Social Kid Studio 🚀
                   className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
                     currentProject.aspectRatio === "9:16"
                       ? "bg-pink-600 text-white shadow-md shadow-pink-500/30 scale-[1.02]"
-                      : "text-slate-400 hover:text-white"
+                      : isLight ? "text-slate-600 hover:text-slate-900" : "text-slate-400 hover:text-white"
                   }`}
                 >
                   <Smartphone className="w-3.5 h-3.5" />
@@ -339,11 +365,13 @@ Generiert mit Social Kid Studio 🚀
 
               {/* Particle Effects */}
               <div className="flex items-center gap-2">
-                <span className="text-xs text-slate-400 font-bold">Effekt:</span>
+                <span className={`text-xs font-bold ${isLight ? "text-slate-600" : "text-slate-400"}`}>Effekt:</span>
                 <select
                   value={currentProject.particleEffect || "stars"}
                   onChange={(e) => updateCurrentProject({ particleEffect: e.target.value as any })}
-                  className="px-3 py-1.5 rounded-xl bg-slate-950 border border-white/10 text-xs text-amber-300 font-bold focus:outline-none"
+                  className={`px-3 py-1.5 rounded-xl border text-xs font-bold focus:outline-none cursor-pointer ${
+                    isLight ? "bg-slate-50 border-slate-200 text-amber-800" : "bg-slate-950 border-white/10 text-amber-300"
+                  }`}
                 >
                   <option value="stars">⭐ Sterne & Glitzer</option>
                   <option value="bubbles">🫧 Seifenblasen</option>
@@ -401,14 +429,20 @@ Generiert mit Social Kid Studio 🚀
             {/* Video Transitions & Watermark Bar */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
               {/* Transitions */}
-              <div className="p-3.5 rounded-2xl bg-slate-950/70 border border-white/10 space-y-2">
-                <label className="text-xs font-extrabold text-indigo-300 flex items-center gap-1.5">
+              <div className={`p-3.5 rounded-2xl border space-y-2 ${
+                isLight ? "bg-slate-50 border-slate-200" : "bg-slate-950/70 border-white/10"
+              }`}>
+                <label className={`text-xs font-extrabold flex items-center gap-1.5 ${
+                  isLight ? "text-indigo-700" : "text-indigo-300"
+                }`}>
                   <Shuffle className="w-3.5 h-3.5" /> Szenen-Übergangseffekt
                 </label>
                 <select
                   value={currentProject.transitionEffect || "smooth-crossfade"}
                   onChange={(e) => updateCurrentProject({ transitionEffect: e.target.value as any })}
-                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-xs font-bold text-white focus:outline-none"
+                  className={`w-full px-3 py-2 rounded-xl border text-xs font-bold focus:outline-none cursor-pointer ${
+                    isLight ? "bg-white border-slate-200 text-slate-800" : "bg-slate-900 border-white/10 text-white"
+                  }`}
                 >
                   {TRANSITIONS.map((t) => (
                     <option key={t.id} value={t.id}>
@@ -419,26 +453,34 @@ Generiert mit Social Kid Studio 🚀
               </div>
 
               {/* Branding & Outro */}
-              <div className="p-3.5 rounded-2xl bg-slate-950/70 border border-white/10 space-y-2">
-                <label className="text-xs font-extrabold text-pink-300 flex items-center gap-1.5">
+              <div className={`p-3.5 rounded-2xl border space-y-2 ${
+                isLight ? "bg-slate-50 border-slate-200" : "bg-slate-950/70 border-white/10"
+              }`}>
+                <label className={`text-xs font-extrabold flex items-center gap-1.5 ${
+                  isLight ? "text-pink-700" : "text-pink-300"
+                }`}>
                   <Shield className="w-3.5 h-3.5" /> Kanal-Wasserzeichen & Outro
                 </label>
                 <div className="flex items-center gap-3">
-                  <label className="flex items-center gap-1.5 text-xs text-slate-300 font-semibold cursor-pointer">
+                  <label className={`flex items-center gap-1.5 text-xs font-semibold cursor-pointer ${
+                    isLight ? "text-slate-700" : "text-slate-300"
+                  }`}>
                     <input
                       type="checkbox"
                       checked={currentProject.showWatermark ?? true}
                       onChange={(e) => updateCurrentProject({ showWatermark: e.target.checked })}
-                      className="rounded accent-pink-500"
+                      className="rounded accent-pink-500 cursor-pointer"
                     />
                     <span>Logo</span>
                   </label>
-                  <label className="flex items-center gap-1.5 text-xs text-slate-300 font-semibold cursor-pointer">
+                  <label className={`flex items-center gap-1.5 text-xs font-semibold cursor-pointer ${
+                    isLight ? "text-slate-700" : "text-slate-300"
+                  }`}>
                     <input
                       type="checkbox"
                       checked={currentProject.showSubscribeOutro ?? true}
                       onChange={(e) => updateCurrentProject({ showSubscribeOutro: e.target.checked })}
-                      className="rounded accent-pink-500"
+                      className="rounded accent-pink-500 cursor-pointer"
                     />
                     <span>Abo-Endcard 🔔</span>
                   </label>
@@ -450,12 +492,12 @@ Generiert mit Social Kid Studio 🚀
             {currentProject.renderedVideoUrl && (
               <div className="p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-between gap-4 animate-fadeIn">
                 <div className="flex items-center gap-3.5">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-bold flex items-center justify-center">
                     <Check className="w-5 h-5 stroke-[3]" />
                   </div>
                   <div>
-                    <h4 className="text-xs font-bold text-white">Video bereit zum Download!</h4>
-                    <p className="text-[11px] text-slate-400">1080p MP4 mit Suno Gesang & Untertiteln</p>
+                    <h4 className={`text-xs font-bold ${isLight ? "text-slate-900" : "text-white"}`}>Video bereit zum Download!</h4>
+                    <p className={`text-[11px] ${isLight ? "text-slate-600" : "text-slate-400"}`}>1080p MP4 mit Suno Gesang & Untertiteln</p>
                   </div>
                 </div>
 
@@ -475,15 +517,21 @@ Generiert mit Social Kid Studio 🚀
         {/* Right Column: YouTube SEO Kit & Thumbnail Generator (5 cols) */}
         <div className="lg:col-span-5 space-y-5">
           {/* YouTube Thumbnail Studio Card */}
-          <div className="p-6 rounded-3xl bg-slate-900/80 backdrop-blur-xl border border-white/10 space-y-4 shadow-2xl">
-            <div className="flex items-center justify-between pb-3 border-b border-white/10">
+          <div className={`p-6 rounded-3xl border space-y-4 shadow-2xl ${
+            isLight
+              ? "bg-white border-slate-200/80 shadow-slate-200/50"
+              : "bg-slate-900/80 backdrop-blur-xl border-white/10 shadow-2xl"
+          }`}>
+            <div className={`flex items-center justify-between pb-3 border-b ${
+              isLight ? "border-slate-200" : "border-white/10"
+            }`}>
               <div className="flex items-center gap-2.5">
-                <div className="p-2 rounded-xl bg-amber-500/20 text-amber-400">
+                <div className="p-2 rounded-xl bg-amber-500/20 text-amber-500 font-bold">
                   <ImageIcon className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="font-fredoka text-base font-bold text-white">YouTube Thumbnail Studio</h3>
-                  <p className="text-[11px] text-slate-400">1-Klick Vorschaubild (1280x720) mit Flux</p>
+                  <h3 className={`font-fredoka text-base font-bold ${isLight ? "text-slate-900" : "text-white"}`}>YouTube Thumbnail Studio</h3>
+                  <p className={`text-[11px] ${isLight ? "text-slate-500" : "text-slate-400"}`}>1-Klick Vorschaubild (1280x720) mit Flux</p>
                 </div>
               </div>
 
@@ -522,15 +570,21 @@ Generiert mit Social Kid Studio 🚀
                 <a
                   href={currentProject.thumbnailUrl}
                   download={`${currentProject.title.replace(/\s+/g, "_")}_Thumbnail.webp`}
-                  className="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold flex items-center justify-center gap-2 transition"
+                  className={`w-full py-2.5 rounded-xl border text-xs font-bold flex items-center justify-center gap-2 transition ${
+                    isLight
+                      ? "bg-slate-100 hover:bg-slate-200 border-slate-200 text-slate-800"
+                      : "bg-slate-800 hover:bg-slate-700 border-transparent text-white"
+                  }`}
                 >
-                  <Download className="w-3.5 h-3.5 text-amber-400" />
+                  <Download className="w-3.5 h-3.5 text-amber-500" />
                   <span>Thumbnail (HD) herunterladen</span>
                 </a>
               </div>
             ) : (
-              <div className="p-5 rounded-2xl bg-slate-950/70 border border-dashed border-white/10 text-center space-y-2">
-                <p className="text-xs text-slate-400">
+              <div className={`p-5 rounded-2xl border border-dashed text-center space-y-2 ${
+                isLight ? "bg-slate-50 border-slate-200" : "bg-slate-950/70 border-white/10"
+              }`}>
+                <p className={`text-xs ${isLight ? "text-slate-600 font-medium" : "text-slate-400"}`}>
                   Klicke oben auf &quot;Thumbnail erstellen&quot;, um ein klickstarkes Vorschaubild für deinen Kanal zu erzeugen.
                 </p>
               </div>
@@ -538,8 +592,14 @@ Generiert mit Social Kid Studio 🚀
           </div>
 
           {/* YouTube SEO Metadata Card */}
-          <div className="p-6 rounded-3xl bg-slate-900/80 backdrop-blur-xl border border-white/10 space-y-5 shadow-2xl">
-            <div className="flex items-center justify-between pb-4 border-b border-white/10">
+          <div className={`p-6 rounded-3xl border space-y-5 shadow-2xl ${
+            isLight
+              ? "bg-white border-slate-200/80 shadow-slate-200/50"
+              : "bg-slate-900/80 backdrop-blur-xl border-white/10 shadow-2xl"
+          }`}>
+            <div className={`flex items-center justify-between pb-4 border-b ${
+              isLight ? "border-slate-200" : "border-white/10"
+            }`}>
               <div className="flex items-center gap-3">
                 <div className="p-2.5 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-500">
                   <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
@@ -547,17 +607,21 @@ Generiert mit Social Kid Studio 🚀
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-fredoka text-base font-bold text-white">YouTube Creator Kit</h3>
-                  <p className="text-[11px] text-slate-400">SEO-Optimierung für deinen Kanal</p>
+                  <h3 className={`font-fredoka text-base font-bold ${isLight ? "text-slate-900" : "text-white"}`}>YouTube Creator Kit</h3>
+                  <p className={`text-[11px] ${isLight ? "text-slate-500" : "text-slate-400"}`}>SEO-Optimierung für deinen Kanal</p>
                 </div>
               </div>
 
               <button
                 onClick={handleGenerateYouTubeSEO}
                 disabled={isGeneratingSeo}
-                className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold transition disabled:opacity-50 cursor-pointer"
+                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl border text-xs font-bold transition disabled:opacity-50 cursor-pointer ${
+                  isLight
+                    ? "bg-slate-100 hover:bg-slate-200 border-slate-200 text-slate-800"
+                    : "bg-slate-800 hover:bg-slate-700 border-transparent text-white"
+                }`}
               >
-                <Wand2 className="w-3.5 h-3.5 text-amber-400" />
+                <Wand2 className="w-3.5 h-3.5 text-amber-500" />
                 <span>SEO Generieren</span>
               </button>
             </div>
@@ -567,16 +631,18 @@ Generiert mit Social Kid Studio 🚀
                 {/* Video Title */}
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <label className="text-xs font-bold text-slate-300">YouTube Titel</label>
+                    <label className={`text-xs font-bold ${isLight ? "text-slate-700" : "text-slate-300"}`}>YouTube Titel</label>
                     <button
                       onClick={() => copyToClipboard(currentProject.youtubeSeo!.title, "title")}
-                      className="text-xs text-indigo-400 hover:text-indigo-300 flex items-center gap-1 font-semibold"
+                      className="text-xs text-indigo-600 hover:text-indigo-500 flex items-center gap-1 font-semibold cursor-pointer"
                     >
-                      {copiedField === "title" ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                      {copiedField === "title" ? <Check className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3" />}
                       <span>Kopieren</span>
                     </button>
                   </div>
-                  <div className="p-3 rounded-2xl bg-slate-950/90 border border-white/10 text-xs text-white font-semibold">
+                  <div className={`p-3 rounded-2xl border text-xs font-semibold ${
+                    isLight ? "bg-slate-50 border-slate-200 text-slate-900" : "bg-slate-950/90 border-white/10 text-white"
+                  }`}>
                     {currentProject.youtubeSeo.title}
                   </div>
                 </div>
@@ -584,12 +650,12 @@ Generiert mit Social Kid Studio 🚀
                 {/* Description */}
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <label className="text-xs font-bold text-slate-300">Video Beschreibung</label>
+                    <label className={`text-xs font-bold ${isLight ? "text-slate-700" : "text-slate-300"}`}>Video Beschreibung</label>
                     <button
                       onClick={() => copyToClipboard(currentProject.youtubeSeo!.description, "desc")}
-                      className="text-xs text-indigo-400 hover:text-indigo-300 flex items-center gap-1 font-semibold"
+                      className="text-xs text-indigo-600 hover:text-indigo-500 flex items-center gap-1 font-semibold cursor-pointer"
                     >
-                      {copiedField === "desc" ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                      {copiedField === "desc" ? <Check className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3" />}
                       <span>Kopieren</span>
                     </button>
                   </div>
@@ -597,27 +663,33 @@ Generiert mit Social Kid Studio 🚀
                     rows={4}
                     readOnly
                     value={currentProject.youtubeSeo.description}
-                    className="w-full p-3 rounded-2xl bg-slate-950/90 border border-white/10 text-xs text-slate-300 resize-none font-mono"
+                    className={`w-full p-3 rounded-2xl border text-xs resize-none font-mono ${
+                      isLight ? "bg-slate-50 border-slate-200 text-slate-800" : "bg-slate-950/90 border-white/10 text-slate-300"
+                    }`}
                   />
                 </div>
 
                 {/* Tags */}
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <label className="text-xs font-bold text-slate-300">YouTube Tags</label>
+                    <label className={`text-xs font-bold ${isLight ? "text-slate-700" : "text-slate-300"}`}>YouTube Tags</label>
                     <button
                       onClick={() => copyToClipboard(currentProject.youtubeSeo!.tags.join(", "), "tags")}
-                      className="text-xs text-indigo-400 hover:text-indigo-300 flex items-center gap-1 font-semibold"
+                      className="text-xs text-indigo-600 hover:text-indigo-500 flex items-center gap-1 font-semibold cursor-pointer"
                     >
-                      {copiedField === "tags" ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                      {copiedField === "tags" ? <Check className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3" />}
                       <span>Alle Tags kopieren</span>
                     </button>
                   </div>
-                  <div className="flex flex-wrap gap-1.5 p-2 rounded-2xl bg-slate-950/90 border border-white/10">
+                  <div className={`flex flex-wrap gap-1.5 p-2 rounded-2xl border ${
+                    isLight ? "bg-slate-50 border-slate-200" : "bg-slate-950/90 border-white/10"
+                  }`}>
                     {currentProject.youtubeSeo.tags.map((t, idx) => (
                       <span
                         key={idx}
-                        className="px-2 py-0.5 rounded-lg bg-slate-800 text-[10px] text-slate-300 font-semibold"
+                        className={`px-2 py-0.5 rounded-lg text-[10px] font-semibold ${
+                          isLight ? "bg-slate-200 text-slate-800" : "bg-slate-800 text-slate-300"
+                        }`}
                       >
                         #{t}
                       </span>
@@ -626,13 +698,15 @@ Generiert mit Social Kid Studio 🚀
                 </div>
               </div>
             ) : (
-              <div className="p-8 rounded-3xl bg-slate-950/80 border border-dashed border-white/10 text-center space-y-3">
-                <p className="text-xs text-slate-400">
+              <div className={`p-8 rounded-3xl border border-dashed text-center space-y-3 ${
+                isLight ? "bg-slate-50 border-slate-200" : "bg-slate-950/80 border-white/10"
+              }`}>
+                <p className={`text-xs ${isLight ? "text-slate-600 font-medium" : "text-slate-400"}`}>
                   Klicke auf &quot;SEO Generieren&quot;, um suchmaschinenoptimierte Titel, Tags und Beschreibungen für YouTube zu erstellen.
                 </p>
                 <button
                   onClick={handleGenerateYouTubeSEO}
-                  className="px-5 py-2.5 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold"
+                  className="px-5 py-2.5 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow cursor-pointer"
                 >
                   Jetzt YouTube SEO erstellen
                 </button>
@@ -643,10 +717,16 @@ Generiert mit Social Kid Studio 🚀
       </div>
 
       {/* Action Footer */}
-      <div className="flex items-center justify-between pt-6 border-t border-white/10">
+      <div className={`flex items-center justify-between pt-6 border-t ${
+        isLight ? "border-slate-200" : "border-white/10"
+      }`}>
         <button
           onClick={() => setCurrentStep(4)}
-          className="flex items-center gap-2 px-5 py-3 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition cursor-pointer"
+          className={`flex items-center gap-2 px-5 py-3 rounded-2xl text-xs font-bold transition cursor-pointer border ${
+            isLight
+              ? "bg-white border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300 shadow-sm"
+              : "bg-slate-800 border-transparent hover:bg-slate-700 text-slate-200"
+          }`}
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Zurück zu Karaoke & Timing</span>
@@ -656,9 +736,13 @@ Generiert mit Social Kid Studio 🚀
           <button
             onClick={handleExportZipPackage}
             disabled={isExportingZip}
-            className="flex items-center gap-2 px-6 py-4 rounded-2xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-black transition cursor-pointer"
+            className={`flex items-center gap-2 px-6 py-4 rounded-2xl border text-xs font-black transition cursor-pointer ${
+              isLight
+                ? "bg-white border-slate-200 text-slate-800 hover:bg-slate-50 shadow-sm"
+                : "bg-slate-800 border-transparent hover:bg-slate-700 text-white"
+            }`}
           >
-            <Package className="w-4 h-4 text-amber-400" />
+            <Package className="w-4 h-4 text-amber-500" />
             <span>YouTube ZIP-Paket</span>
           </button>
 

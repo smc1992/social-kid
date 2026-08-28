@@ -353,7 +353,11 @@ export const Step2MusicStudio: React.FC = () => {
       </div>
 
       {/* Master Player & Equalizer Card */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-slate-900/80 backdrop-blur-xl border border-white/10 shadow-2xl space-y-6">
+      <div className={`p-6 sm:p-8 rounded-3xl border shadow-xl space-y-6 ${
+        isLight
+          ? "bg-white border-slate-200/80 shadow-slate-200/50"
+          : "bg-slate-900/80 backdrop-blur-xl border-white/10 shadow-2xl"
+      }`}>
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             {/* Spinning Vinyl */}
@@ -369,10 +373,10 @@ export const Step2MusicStudio: React.FC = () => {
             </div>
 
             <div>
-              <h3 className="font-fredoka text-xl font-bold text-white">
+              <h3 className={`font-fredoka text-xl font-bold ${isLight ? "text-slate-900" : "text-white"}`}>
                 {currentProject.title}
               </h3>
-              <p className="text-xs text-slate-400">
+              <p className={`text-xs ${isLight ? "text-slate-600 font-medium" : "text-slate-400"}`}>
                 {currentProject.genre} • {currentProject.targetAge} Jahre • {currentProject.audioDuration || 42}s Dauer
               </p>
             </div>
@@ -383,7 +387,11 @@ export const Step2MusicStudio: React.FC = () => {
               onClick={() => setIsTrimmingActive(!isTrimmingActive)}
               className={`flex items-center gap-1.5 px-3.5 py-2 rounded-2xl border text-xs font-bold transition cursor-pointer ${
                 isTrimmingActive
-                  ? "bg-amber-500/20 border-amber-400 text-amber-300"
+                  ? isLight
+                    ? "bg-amber-100 border-amber-400 text-amber-800"
+                    : "bg-amber-500/20 border-amber-400 text-amber-300"
+                  : isLight
+                  ? "bg-white border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300"
                   : "bg-slate-950 border-white/10 text-slate-300 hover:text-white"
               }`}
             >
@@ -403,7 +411,9 @@ export const Step2MusicStudio: React.FC = () => {
         </div>
 
         {/* Animated Equalizer Waveform */}
-        <div className="p-4 rounded-2xl bg-slate-950/80 border border-white/10 flex items-center justify-center gap-1.5 h-20 shadow-inner overflow-hidden">
+        <div className={`p-4 rounded-2xl border flex items-center justify-center gap-1.5 h-20 shadow-inner overflow-hidden ${
+          isLight ? "bg-slate-100/80 border-slate-200" : "bg-slate-950/80 border-white/10"
+        }`}>
           {Array.from({ length: 48 }).map((_, i) => {
             const barHeight = isPlaying
               ? Math.max(12, Math.sin(i * 0.4 + currentTime * 5) * 45 + 50)
@@ -421,21 +431,25 @@ export const Step2MusicStudio: React.FC = () => {
 
         {/* Audio-Trimmer & Schnitt-Tool Drawer (Option 3) */}
         {isTrimmingActive && (
-          <div className="p-5 rounded-2xl bg-slate-950 border border-amber-500/30 space-y-4 animate-fadeIn">
+          <div className={`p-5 rounded-2xl border space-y-4 animate-fadeIn ${
+            isLight ? "bg-amber-50/60 border-amber-300/80" : "bg-slate-950 border-amber-500/30"
+          }`}>
             <div className="flex items-center justify-between">
-              <h4 className="text-xs font-black text-amber-300 uppercase tracking-wider flex items-center gap-2">
-                <Scissors className="w-4 h-4 text-amber-400" />
+              <h4 className={`text-xs font-black uppercase tracking-wider flex items-center gap-2 ${
+                isLight ? "text-amber-800" : "text-amber-300"
+              }`}>
+                <Scissors className="w-4 h-4 text-amber-500" />
                 <span>Audio-Trimmer & Schnitt (Start- & Endzeit)</span>
               </h4>
-              <span className="text-xs font-mono text-slate-400">
+              <span className={`text-xs font-mono font-bold ${isLight ? "text-slate-600" : "text-slate-400"}`}>
                 Gesamtdauer: {(trimEnd - trimStart).toFixed(1)}s
               </span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="text-[11px] font-bold text-slate-300 block mb-1">
-                  Startzeit: <span className="text-amber-300">{trimStart.toFixed(1)}s</span>
+                <label className={`text-[11px] font-bold block mb-1 ${isLight ? "text-slate-700" : "text-slate-300"}`}>
+                  Startzeit: <span className="text-amber-600 dark:text-amber-300 font-extrabold">{trimStart.toFixed(1)}s</span>
                 </label>
                 <input
                   type="range"
@@ -444,13 +458,13 @@ export const Step2MusicStudio: React.FC = () => {
                   step="0.5"
                   value={trimStart}
                   onChange={(e) => setTrimStart(parseFloat(e.target.value))}
-                  className="w-full accent-amber-400"
+                  className="w-full accent-amber-500 cursor-pointer"
                 />
               </div>
 
               <div>
-                <label className="text-[11px] font-bold text-slate-300 block mb-1">
-                  Endzeit: <span className="text-pink-300">{trimEnd.toFixed(1)}s</span>
+                <label className={`text-[11px] font-bold block mb-1 ${isLight ? "text-slate-700" : "text-slate-300"}`}>
+                  Endzeit: <span className="text-pink-600 dark:text-pink-300 font-extrabold">{trimEnd.toFixed(1)}s</span>
                 </label>
                 <input
                   type="range"
@@ -459,7 +473,7 @@ export const Step2MusicStudio: React.FC = () => {
                   step="0.5"
                   value={trimEnd}
                   onChange={(e) => setTrimEnd(parseFloat(e.target.value))}
-                  className="w-full accent-pink-500"
+                  className="w-full accent-pink-500 cursor-pointer"
                 />
               </div>
             </div>
@@ -476,8 +490,14 @@ export const Step2MusicStudio: React.FC = () => {
       </div>
 
       {/* Takes & Version History */}
-      <div className="p-6 rounded-3xl bg-slate-900/80 backdrop-blur-xl border border-white/10 shadow-xl space-y-4">
-        <h3 className="font-fredoka text-lg font-bold text-white flex items-center gap-2">
+      <div className={`p-6 rounded-3xl border shadow-xl space-y-4 ${
+        isLight
+          ? "bg-white border-slate-200/80 shadow-slate-200/50"
+          : "bg-slate-900/80 backdrop-blur-xl border-white/10 shadow-xl"
+      }`}>
+        <h3 className={`font-fredoka text-lg font-bold flex items-center gap-2 ${
+          isLight ? "text-slate-900" : "text-white"
+        }`}>
           <span>📼</span> Aufgenommene Musik-Takes ({currentProject.tracks?.length || 0})
         </h3>
 
@@ -490,24 +510,30 @@ export const Step2MusicStudio: React.FC = () => {
                 onClick={() => handleSelectTrack(t)}
                 className={`p-3.5 rounded-2xl border transition-all flex items-center justify-between gap-3 cursor-pointer ${
                   isSelected
-                    ? "bg-indigo-950/70 border-indigo-400 shadow-md shadow-indigo-500/20"
-                    : "bg-slate-950/60 border-white/5 hover:border-white/15"
+                    ? isLight
+                      ? "bg-indigo-50/80 border-indigo-400 shadow-md text-slate-900 ring-2 ring-indigo-400/40"
+                      : "bg-indigo-950/70 border-indigo-400 shadow-md shadow-indigo-500/20 text-white"
+                    : isLight
+                    ? "bg-slate-50 border-slate-200 hover:border-slate-300 hover:bg-slate-100 text-slate-900"
+                    : "bg-slate-950/60 border-white/5 hover:border-white/15 text-white"
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <span className="w-8 h-8 rounded-xl bg-slate-800 text-slate-300 text-xs font-bold flex items-center justify-center">
+                  <span className={`w-8 h-8 rounded-xl text-xs font-bold flex items-center justify-center ${
+                    isLight ? "bg-slate-200 text-slate-800" : "bg-slate-800 text-slate-300"
+                  }`}>
                     {idx + 1}
                   </span>
                   <div>
-                    <h4 className="font-bold text-xs text-white">{t.title}</h4>
-                    <span className="text-[10px] text-slate-400 font-mono">
+                    <h4 className={`font-bold text-xs ${isLight ? "text-slate-900" : "text-white"}`}>{t.title}</h4>
+                    <span className={`text-[10px] font-mono ${isLight ? "text-slate-500" : "text-slate-400"}`}>
                       {t.duration}s • {t.provider}
                     </span>
                   </div>
                 </div>
 
                 {isSelected && (
-                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30">
                     Aktiv
                   </span>
                 )}
@@ -518,10 +544,16 @@ export const Step2MusicStudio: React.FC = () => {
       </div>
 
       {/* Action Footer */}
-      <div className="flex items-center justify-between pt-6 border-t border-white/10">
+      <div className={`flex items-center justify-between pt-6 border-t ${
+        isLight ? "border-slate-200" : "border-white/10"
+      }`}>
         <button
           onClick={() => setCurrentStep(1)}
-          className="flex items-center gap-2 px-5 py-3 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition cursor-pointer"
+          className={`flex items-center gap-2 px-5 py-3 rounded-2xl text-xs font-bold transition cursor-pointer border ${
+            isLight
+              ? "bg-white border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300 shadow-sm"
+              : "bg-slate-800 border-transparent hover:bg-slate-700 text-slate-200"
+          }`}
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Zurück zu Text</span>
@@ -529,9 +561,10 @@ export const Step2MusicStudio: React.FC = () => {
 
         <button
           onClick={handleNextStep}
-          className="flex items-center gap-2 px-7 py-3.5 rounded-2xl bg-gradient-to-r from-pink-500 to-indigo-600 text-white font-extrabold text-sm shadow-lg shadow-indigo-500/25 hover:scale-[1.03] transition cursor-pointer"
+          disabled={!currentProject.audioUrl}
+          className="flex items-center gap-2 px-8 py-3.5 rounded-2xl bg-gradient-to-r from-pink-500 to-indigo-600 text-white font-extrabold text-xs shadow-lg hover:scale-105 transition cursor-pointer disabled:opacity-50"
         >
-          <span>Weiter zu Schritt 3: Storyboard & Szenen</span>
+          <span>Weiter zu Schritt 3 (Storyboard)</span>
           <ArrowRight className="w-4 h-4" />
         </button>
       </div>

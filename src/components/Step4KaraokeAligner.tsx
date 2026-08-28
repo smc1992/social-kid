@@ -46,8 +46,10 @@ export const Step4KaraokeAligner: React.FC = () => {
     setGeneratingCaptions,
     showToast,
     saveCurrentProjectToDb,
+    theme,
   } = useProjectStore();
 
+  const isLight = theme === "light";
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [expandedLineId, setExpandedLineId] = useState<string | null>(null);
@@ -174,24 +176,36 @@ export const Step4KaraokeAligner: React.FC = () => {
       )}
 
       {/* Hero Banner */}
-      <div className="relative overflow-hidden rounded-3xl p-6 sm:p-8 bg-gradient-to-r from-amber-950/80 via-pink-950/60 to-slate-950 border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+      <div className={`relative overflow-hidden rounded-3xl p-6 sm:p-8 border shadow-xl ${
+        isLight
+          ? "bg-gradient-to-r from-white via-amber-50/40 to-pink-50/50 border-slate-200/80 shadow-slate-200/50"
+          : "bg-gradient-to-r from-amber-950/80 via-pink-950/60 to-slate-950 border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+      }`}>
         <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 rounded-full bg-amber-500/20 blur-3xl pointer-events-none" />
 
         <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="space-y-3">
             <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-amber-400/20 to-pink-500/20 border border-amber-400/40 text-amber-300 text-xs font-black uppercase tracking-wider">
+              <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider ${
+                isLight
+                  ? "bg-amber-100 border border-amber-300 text-amber-800"
+                  : "bg-gradient-to-r from-amber-400/20 to-pink-500/20 border border-amber-400/40 text-amber-300"
+              }`}>
                 <Subtitles className="w-3.5 h-3.5" /> Phase 4: Karaoke & Timing
               </span>
-              <span className="text-xs font-semibold text-slate-400">
+              <span className={`text-xs font-semibold ${isLight ? "text-slate-600 font-bold" : "text-slate-400"}`}>
                 Whisper AI Wort-Synchronisation + Fine-Tuner
               </span>
             </div>
 
-            <h1 className="font-fredoka text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-wide">
+            <h1 className={`font-fredoka text-3xl sm:text-4xl lg:text-5xl font-black tracking-wide ${
+              isLight ? "text-slate-900" : "text-white"
+            }`}>
               Karaoke & <span className="gradient-text-gold">Sing-Along Sync</span>
             </h1>
-            <p className="text-sm text-slate-300 max-w-2xl leading-relaxed">
+            <p className={`text-sm max-w-2xl leading-relaxed ${
+              isLight ? "text-slate-700 font-medium" : "text-slate-300"
+            }`}>
               Jedes gesungene Wort wird exakt auf die Sekunde abgestimmt. Nutze den automatischen Whisper-Sync oder passe einzelne Wörter mit dem Feinjustier-Tool an.
             </p>
           </div>
@@ -217,17 +231,21 @@ export const Step4KaraokeAligner: React.FC = () => {
       </div>
 
       {/* Live Karaoke Monitor Screen */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-slate-900/80 backdrop-blur-xl border border-white/10 shadow-xl space-y-6">
+      <div className={`p-6 sm:p-8 rounded-3xl border shadow-xl space-y-6 ${
+        isLight
+          ? "bg-white border-slate-200/80 shadow-slate-200/50"
+          : "bg-slate-900/80 backdrop-blur-xl border-white/10 shadow-xl"
+      }`}>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-400 to-pink-500 flex items-center justify-center text-white text-xl font-bold shadow-lg">
               🎤
             </div>
             <div>
-              <h3 className="font-fredoka text-lg font-bold text-white">
+              <h3 className={`font-fredoka text-lg font-bold ${isLight ? "text-slate-900" : "text-white"}`}>
                 Live Karaoke Monitor ({currentTime.toFixed(1)}s)
               </h3>
-              <p className="text-xs text-slate-400">Echtzeit-Vorschau der Sing-Along Untertitel</p>
+              <p className={`text-xs ${isLight ? "text-slate-500 font-medium" : "text-slate-400"}`}>Echtzeit-Vorschau der Sing-Along Untertitel</p>
             </div>
           </div>
 
@@ -241,7 +259,11 @@ export const Step4KaraokeAligner: React.FC = () => {
         </div>
 
         {/* Large CRT Screen Style Preview */}
-        <div className="relative min-h-[160px] rounded-3xl bg-gradient-to-b from-slate-950 to-slate-900 border border-amber-400/20 flex items-center justify-center p-8 text-center shadow-[inset_0_4px_30px_rgba(0,0,0,0.8)] overflow-hidden">
+        <div className={`relative min-h-[160px] rounded-3xl border flex items-center justify-center p-8 text-center shadow-inner overflow-hidden ${
+          isLight
+            ? "bg-gradient-to-b from-slate-100 to-slate-50 border-slate-200"
+            : "bg-gradient-to-b from-slate-950 to-slate-900 border-amber-400/20 shadow-[inset_0_4px_30px_rgba(0,0,0,0.8)]"
+        }`}>
           {activeLine ? (
             <div className="space-y-3">
               <div className="flex flex-wrap items-center justify-center gap-3">
@@ -261,8 +283,8 @@ export const Step4KaraokeAligner: React.FC = () => {
                           isActive
                             ? "bg-gradient-to-r from-pink-500 to-indigo-600 text-white scale-110 shadow-lg shadow-pink-500/50"
                             : isPassed
-                            ? "text-yellow-400"
-                            : "text-slate-500"
+                            ? isLight ? "text-amber-600" : "text-yellow-400"
+                            : isLight ? "text-slate-400" : "text-slate-500"
                         }`}
                         style={{ fontFamily: currentProject.captionFont }}
                       >
@@ -274,7 +296,7 @@ export const Step4KaraokeAligner: React.FC = () => {
               </div>
             </div>
           ) : (
-            <div className="text-slate-500 text-sm italic">
+            <div className={`text-sm italic ${isLight ? "text-slate-500" : "text-slate-500"}`}>
               Klicke &quot;Live Testen&quot; oder wähle unten eine Strophe aus.
             </div>
           )}
@@ -284,9 +306,15 @@ export const Step4KaraokeAligner: React.FC = () => {
       {/* Style & Font Controls Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Caption Style */}
-        <div className="p-6 rounded-3xl bg-slate-900/80 backdrop-blur-xl border border-white/10 shadow-xl space-y-4">
-          <h3 className="font-fredoka text-base font-bold text-white flex items-center gap-2">
-            <Palette className="w-4 h-4 text-amber-400" />
+        <div className={`p-6 rounded-3xl border shadow-xl space-y-4 ${
+          isLight
+            ? "bg-white border-slate-200/80 shadow-slate-200/50"
+            : "bg-slate-900/80 backdrop-blur-xl border-white/10 shadow-xl"
+        }`}>
+          <h3 className={`font-fredoka text-base font-bold flex items-center gap-2 ${
+            isLight ? "text-slate-900" : "text-white"
+          }`}>
+            <Palette className="w-4 h-4 text-amber-500" />
             <span>Karaoke-Effekt</span>
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -298,17 +326,21 @@ export const Step4KaraokeAligner: React.FC = () => {
                   onClick={() => updateCurrentProject({ captionStyle: st.id })}
                   className={`p-4 rounded-2xl border transition-all duration-300 text-left flex flex-col justify-between gap-2 cursor-pointer ${
                     isSelected
-                      ? "bg-slate-900 border-amber-400 shadow-[0_0_20px_rgba(251,191,36,0.25)] scale-[1.02]"
-                      : "bg-slate-950/60 border-white/5 hover:border-white/15"
+                      ? isLight
+                        ? "bg-amber-50/80 border-amber-400 shadow-md scale-[1.02] ring-2 ring-amber-400/40 text-slate-900"
+                        : "bg-slate-900 border-amber-400 shadow-[0_0_20px_rgba(251,191,36,0.25)] scale-[1.02] text-white"
+                      : isLight
+                      ? "bg-white border-slate-200 hover:border-amber-300 hover:bg-slate-50 text-slate-900 shadow-sm"
+                      : "bg-slate-950/60 border-white/5 hover:border-white/15 text-white"
                   }`}
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-2xl">{st.icon}</span>
-                    {isSelected && <Check className="w-4 h-4 text-amber-400" />}
+                    {isSelected && <Check className="w-4 h-4 text-amber-500 stroke-[3]" />}
                   </div>
                   <div>
-                    <h4 className="font-bold text-xs text-white">{st.name}</h4>
-                    <p className="text-[10px] text-slate-400 mt-0.5">{st.desc}</p>
+                    <h4 className={`font-bold text-xs ${isLight ? "text-slate-900" : "text-white"}`}>{st.name}</h4>
+                    <p className={`text-[10px] mt-0.5 ${isLight ? "text-slate-600 font-medium" : "text-slate-400"}`}>{st.desc}</p>
                   </div>
                 </button>
               );
@@ -317,9 +349,15 @@ export const Step4KaraokeAligner: React.FC = () => {
         </div>
 
         {/* Font Selection */}
-        <div className="p-6 rounded-3xl bg-slate-900/80 backdrop-blur-xl border border-white/10 shadow-xl space-y-4">
-          <h3 className="font-fredoka text-base font-bold text-white flex items-center gap-2">
-            <Type className="w-4 h-4 text-pink-400" />
+        <div className={`p-6 rounded-3xl border shadow-xl space-y-4 ${
+          isLight
+            ? "bg-white border-slate-200/80 shadow-slate-200/50"
+            : "bg-slate-900/80 backdrop-blur-xl border-white/10 shadow-xl"
+        }`}>
+          <h3 className={`font-fredoka text-base font-bold flex items-center gap-2 ${
+            isLight ? "text-slate-900" : "text-white"
+          }`}>
+            <Type className="w-4 h-4 text-pink-500" />
             <span>Kinder-Schriftart</span>
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -331,17 +369,21 @@ export const Step4KaraokeAligner: React.FC = () => {
                   onClick={() => updateCurrentProject({ captionFont: font.id })}
                   className={`p-4 rounded-2xl border transition-all duration-300 text-left flex items-center justify-between cursor-pointer ${
                     isSelected
-                      ? "bg-slate-900 border-pink-400 shadow-[0_0_20px_rgba(236,72,153,0.25)] scale-[1.02]"
-                      : "bg-slate-950/60 border-white/5 hover:border-white/15"
+                      ? isLight
+                        ? "bg-pink-50/80 border-pink-400 shadow-md scale-[1.02] ring-2 ring-pink-400/40 text-slate-900"
+                        : "bg-slate-900 border-pink-400 shadow-[0_0_20px_rgba(236,72,153,0.25)] scale-[1.02] text-white"
+                      : isLight
+                      ? "bg-white border-slate-200 hover:border-pink-300 hover:bg-slate-50 text-slate-900 shadow-sm"
+                      : "bg-slate-950/60 border-white/5 hover:border-white/15 text-white"
                   }`}
                 >
                   <div>
-                    <h4 className="font-bold text-xs text-white">{font.name}</h4>
-                    <span className="text-xs text-pink-300 font-black block mt-1" style={{ fontFamily: font.id }}>
+                    <h4 className={`font-bold text-xs ${isLight ? "text-slate-900" : "text-white"}`}>{font.name}</h4>
+                    <span className={`text-xs font-black block mt-1 ${isLight ? "text-pink-600" : "text-pink-300"}`} style={{ fontFamily: font.id }}>
                       {font.sample}
                     </span>
                   </div>
-                  {isSelected && <Check className="w-4 h-4 text-pink-400" />}
+                  {isSelected && <Check className="w-4 h-4 text-pink-500 stroke-[3]" />}
                 </button>
               );
             })}
@@ -350,12 +392,18 @@ export const Step4KaraokeAligner: React.FC = () => {
       </div>
 
       {/* Synchronized Captions List with Word-Level Fine-Tuning Drawer */}
-      <div className="p-6 rounded-3xl bg-slate-900/80 backdrop-blur-xl border border-white/10 shadow-xl space-y-4">
+      <div className={`p-6 rounded-3xl border shadow-xl space-y-4 ${
+        isLight
+          ? "bg-white border-slate-200/80 shadow-slate-200/50"
+          : "bg-slate-900/80 backdrop-blur-xl border-white/10 shadow-xl"
+      }`}>
         <div className="flex items-center justify-between">
-          <h3 className="font-fredoka text-lg font-bold text-white flex items-center gap-2">
+          <h3 className={`font-fredoka text-lg font-bold flex items-center gap-2 ${
+            isLight ? "text-slate-900" : "text-white"
+          }`}>
             <span>⏱️</span> Synchronisierte Liedtext-Zeilen & Feinjustierung ({captions.length})
           </h3>
-          <span className="text-xs text-slate-400">Klicke eine Zeile an, um einzelne Wörter im Detail zu justieren</span>
+          <span className={`text-xs ${isLight ? "text-slate-500 font-medium" : "text-slate-400"}`}>Klicke eine Zeile an, um einzelne Wörter im Detail zu justieren</span>
         </div>
 
         <div className="space-y-4 max-h-[500px] overflow-y-auto pr-1">
@@ -368,8 +416,12 @@ export const Step4KaraokeAligner: React.FC = () => {
                 key={line.id}
                 className={`rounded-2xl border transition-all ${
                   isCurrentPlaying
-                    ? "bg-indigo-950/70 border-indigo-400 shadow-lg shadow-indigo-500/20"
-                    : "bg-slate-950/60 border-white/5 hover:border-white/15"
+                    ? isLight
+                      ? "bg-indigo-50/80 border-indigo-400 shadow-md ring-2 ring-indigo-400/40 text-slate-900"
+                      : "bg-indigo-950/70 border-indigo-400 shadow-lg shadow-indigo-500/20 text-white"
+                    : isLight
+                    ? "bg-slate-50 border-slate-200 hover:border-slate-300 text-slate-900"
+                    : "bg-slate-950/60 border-white/5 hover:border-white/15 text-white"
                 }`}
               >
                 {/* Main Line Card Header */}
@@ -378,15 +430,17 @@ export const Step4KaraokeAligner: React.FC = () => {
                   className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 cursor-pointer"
                 >
                   <div className="flex items-center gap-3.5">
-                    <span className="w-8 h-8 rounded-xl bg-slate-800 text-slate-300 text-xs font-black flex items-center justify-center">
+                    <span className={`w-8 h-8 rounded-xl text-xs font-black flex items-center justify-center ${
+                      isLight ? "bg-slate-200 text-slate-800" : "bg-slate-800 text-slate-300"
+                    }`}>
                       {idx + 1}
                     </span>
                     <div>
-                      <p className="text-sm font-bold text-white" style={{ fontFamily: currentProject.captionFont }}>
+                      <p className={`text-sm font-bold ${isLight ? "text-slate-900" : "text-white"}`} style={{ fontFamily: currentProject.captionFont }}>
                         {line.text}
                       </p>
-                      <div className="flex items-center gap-2 mt-1 text-[11px] text-slate-400 font-mono">
-                        <span className="text-amber-300 font-bold">{line.start}s – {line.end}s</span>
+                      <div className={`flex items-center gap-2 mt-1 text-[11px] font-mono ${isLight ? "text-slate-500" : "text-slate-400"}`}>
+                        <span className="text-amber-600 dark:text-amber-300 font-bold">{line.start}s – {line.end}s</span>
                         <span>•</span>
                         <span>{line.words?.length || 0} Wörter</span>
                       </div>
@@ -400,7 +454,11 @@ export const Step4KaraokeAligner: React.FC = () => {
                         e.stopPropagation();
                         handleSeek(line.start);
                       }}
-                      className="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold flex items-center gap-1.5 cursor-pointer"
+                      className={`px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer border ${
+                        isLight
+                          ? "bg-white border-slate-200 text-slate-700 hover:bg-slate-50 shadow-sm"
+                          : "bg-slate-800 border-transparent hover:bg-slate-700 text-white"
+                      }`}
                     >
                       <Play className="w-3.5 h-3.5 fill-current" />
                       <span>Anhören</span>
@@ -412,77 +470,98 @@ export const Step4KaraokeAligner: React.FC = () => {
                         e.stopPropagation();
                         setExpandedLineId(isExpanded ? null : line.id);
                       }}
-                      className="px-3 py-1.5 rounded-xl bg-slate-900 border border-white/10 hover:border-amber-400/50 text-amber-300 text-xs font-bold flex items-center gap-1.5 cursor-pointer"
+                      className={`px-3.5 py-1.5 rounded-xl border text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
+                        isExpanded
+                          ? isLight
+                            ? "bg-indigo-100 border-indigo-300 text-indigo-700"
+                            : "bg-indigo-500/20 border-indigo-400 text-indigo-300"
+                          : isLight
+                          ? "bg-white border-slate-200 text-slate-700 hover:bg-slate-50 shadow-sm"
+                          : "bg-slate-800/80 border-white/10 text-slate-300 hover:text-white"
+                      }`}
                     >
                       <SlidersHorizontal className="w-3.5 h-3.5" />
-                      <span>{isExpanded ? "Schließen" : "Wörter justieren"}</span>
+                      <span>{isExpanded ? "Schließen" : "Wort-Feinjustierer"}</span>
                       {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                     </button>
                   </div>
                 </div>
 
-                {/* Expanded Word-Level Timing Editor */}
+                {/* Word-Level Fine-Tuning Drawer */}
                 {isExpanded && (
-                  <div className="p-4 border-t border-white/10 bg-slate-900/90 rounded-b-2xl space-y-3 animate-fadeIn">
-                    <div className="flex items-center justify-between text-[11px] font-bold text-slate-400">
-                      <span>Wort-Timing millimetergenau anpassen (+/- 0.1s):</span>
+                  <div className={`p-4 border-t space-y-3 animate-fadeIn ${
+                    isLight ? "bg-white/80 border-slate-200" : "bg-slate-900/90 border-white/10"
+                  }`}>
+                    <div className="flex items-center justify-between">
+                      <span className={`text-[11px] font-bold uppercase tracking-wider ${
+                        isLight ? "text-indigo-600" : "text-indigo-300"
+                      }`}>
+                        Wort-Timings manuell anpassen (+/- 0.1s)
+                      </span>
+                      <span className={`text-[10px] ${isLight ? "text-slate-500" : "text-slate-400"}`}>
+                        Klicke auf [+] / [-] für pixelgenauen Mitsing-Sync
+                      </span>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
-                      {line.words.map((word) => (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
+                      {line.words?.map((word) => (
                         <div
                           key={word.id}
-                          className="p-2.5 rounded-xl bg-slate-950 border border-white/10 flex flex-col justify-between gap-2"
+                          className={`p-2.5 rounded-xl border flex items-center justify-between gap-2 ${
+                            isLight ? "bg-slate-50 border-slate-200 shadow-sm" : "bg-slate-950/80 border-white/5"
+                          }`}
                         >
-                          <input
-                            type="text"
-                            value={word.word}
-                            onChange={(e) => handleUpdateWordText(line.id, word.id, e.target.value)}
-                            className="bg-transparent text-xs font-bold text-white border-b border-white/10 pb-0.5 focus:outline-none focus:border-amber-400 font-mono"
-                          />
+                          <div className="min-w-0 flex-1">
+                            <span className={`font-bold text-xs block truncate ${isLight ? "text-slate-900" : "text-white"}`}>
+                              {word.word}
+                            </span>
+                            <span className="text-[10px] font-mono text-amber-600 dark:text-amber-300 font-bold">
+                              {word.start.toFixed(1)}s - {word.end.toFixed(1)}s
+                            </span>
+                          </div>
 
-                          <div className="flex items-center justify-between text-[10px] font-mono text-slate-400">
-                            {/* Start Time Adjust */}
-                            <div className="flex items-center gap-1">
-                              <span>Start:</span>
+                          <div className="flex items-center gap-1">
+                            {/* Start Time Controls */}
+                            <div className="flex flex-col gap-0.5">
+                              <button
+                                type="button"
+                                onClick={() => handleAdjustWordTiming(line.id, word.id, 0.1, "start")}
+                                className={`w-5 h-5 rounded flex items-center justify-center transition cursor-pointer text-[10px] ${
+                                  isLight ? "bg-slate-200 hover:bg-slate-300 text-slate-800" : "bg-slate-800 hover:bg-slate-700 text-white"
+                                }`}
+                                title="Start +0.1s"
+                              >
+                                +
+                              </button>
                               <button
                                 type="button"
                                 onClick={() => handleAdjustWordTiming(line.id, word.id, -0.1, "start")}
-                                className="p-1 rounded bg-slate-800 hover:bg-slate-700 text-white"
-                                title="-0.1s"
+                                className={`w-5 h-5 rounded flex items-center justify-center transition cursor-pointer text-[10px] ${
+                                  isLight ? "bg-slate-200 hover:bg-slate-300 text-slate-800" : "bg-slate-800 hover:bg-slate-700 text-white"
+                                }`}
+                                title="Start -0.1s"
                               >
-                                <Minus className="w-2.5 h-2.5" />
-                              </button>
-                              <span className="font-bold text-amber-300">{word.start.toFixed(1)}s</span>
-                              <button
-                                type="button"
-                                onClick={() => handleAdjustWordTiming(line.id, word.id, +0.1, "start")}
-                                className="p-1 rounded bg-slate-800 hover:bg-slate-700 text-white"
-                                title="+0.1s"
-                              >
-                                <Plus className="w-2.5 h-2.5" />
+                                -
                               </button>
                             </div>
 
-                            {/* End Time Adjust */}
-                            <div className="flex items-center gap-1">
-                              <span>Ende:</span>
+                            {/* End Time Controls */}
+                            <div className="flex flex-col gap-0.5">
+                              <button
+                                type="button"
+                                onClick={() => handleAdjustWordTiming(line.id, word.id, 0.1, "end")}
+                                className="w-5 h-5 rounded bg-pink-500/20 hover:bg-pink-500/40 text-pink-600 dark:text-pink-300 flex items-center justify-center text-[10px] transition cursor-pointer"
+                                title="Ende +0.1s"
+                              >
+                                +
+                              </button>
                               <button
                                 type="button"
                                 onClick={() => handleAdjustWordTiming(line.id, word.id, -0.1, "end")}
-                                className="p-1 rounded bg-slate-800 hover:bg-slate-700 text-white"
-                                title="-0.1s"
+                                className="w-5 h-5 rounded bg-pink-500/20 hover:bg-pink-500/40 text-pink-600 dark:text-pink-300 flex items-center justify-center text-[10px] transition cursor-pointer"
+                                title="Ende -0.1s"
                               >
-                                <Minus className="w-2.5 h-2.5" />
-                              </button>
-                              <span className="font-bold text-pink-300">{word.end.toFixed(1)}s</span>
-                              <button
-                                type="button"
-                                onClick={() => handleAdjustWordTiming(line.id, word.id, +0.1, "end")}
-                                className="p-1 rounded bg-slate-800 hover:bg-slate-700 text-white"
-                                title="+0.1s"
-                              >
-                                <Plus className="w-2.5 h-2.5" />
+                                -
                               </button>
                             </div>
                           </div>
@@ -498,20 +577,26 @@ export const Step4KaraokeAligner: React.FC = () => {
       </div>
 
       {/* Action Footer */}
-      <div className="flex items-center justify-between pt-6 border-t border-white/10">
+      <div className={`flex items-center justify-between pt-6 border-t ${
+        isLight ? "border-slate-200" : "border-white/10"
+      }`}>
         <button
           onClick={() => setCurrentStep(3)}
-          className="flex items-center gap-2 px-5 py-3 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition cursor-pointer"
+          className={`flex items-center gap-2 px-5 py-3 rounded-2xl text-xs font-bold transition cursor-pointer border ${
+            isLight
+              ? "bg-white border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300 shadow-sm"
+              : "bg-slate-800 border-transparent hover:bg-slate-700 text-slate-200"
+          }`}
         >
           <ArrowLeft className="w-4 h-4" />
-          <span>Zurück zu Szenen</span>
+          <span>Zurück zu Storyboard</span>
         </button>
 
         <button
           onClick={handleNextStep}
-          className="flex items-center gap-2 px-7 py-3.5 rounded-2xl bg-gradient-to-r from-amber-400 via-pink-500 to-indigo-600 text-white font-extrabold text-sm shadow-lg shadow-indigo-500/25 hover:scale-[1.03] transition cursor-pointer"
+          className="flex items-center gap-2 px-8 py-3.5 rounded-2xl bg-gradient-to-r from-pink-500 to-indigo-600 text-white font-extrabold text-xs shadow-lg hover:scale-105 transition cursor-pointer"
         >
-          <span>Weiter zu Schritt 5: Video Studio & YouTube</span>
+          <span>Weiter zu Schritt 5 (Video Studio)</span>
           <ArrowRight className="w-4 h-4" />
         </button>
       </div>
