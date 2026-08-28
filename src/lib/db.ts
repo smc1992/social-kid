@@ -3,41 +3,51 @@ import fs from "fs";
 import path from "path";
 import { Project, AppSettings } from "@/types";
 
-const DATA_DIR = path.join(process.cwd(), "data");
-if (!fs.existsSync(DATA_DIR)) {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
+const isServerless = !!(process.env.NETLIFY || process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.VERCEL);
+const DATA_DIR = isServerless ? path.join("/tmp", "social_kid_data") : path.join(process.cwd(), "data");
+
+try {
+  if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+  }
+} catch (e) {
+  console.warn("Could not create data directory:", e);
 }
 
 const DB_PATH = path.join(DATA_DIR, "social_kid.db");
-const db = new Database(DB_PATH);
+let db: any;
+try {
+  db = new Database(DB_PATH);
+  // Initialize Tables
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS projects (
+      id TEXT PRIMARY KEY,
+      title TEXT NOT NULL,
+      topic TEXT,
+      target_age TEXT,
+      language TEXT,
+      genre TEXT,
+      mood TEXT,
+      lyrics TEXT,
+      audio_url TEXT,
+      audio_duration REAL,
+      aspect_ratio TEXT,
+      caption_style TEXT,
+      caption_font TEXT,
+      particle_effect TEXT,
+      raw_data TEXT,
+      created_at TEXT,
+      updated_at TEXT
+    );
 
-// Initialize Tables
-db.exec(`
-  CREATE TABLE IF NOT EXISTS projects (
-    id TEXT PRIMARY KEY,
-    title TEXT NOT NULL,
-    topic TEXT,
-    target_age TEXT,
-    language TEXT,
-    genre TEXT,
-    mood TEXT,
-    lyrics TEXT,
-    audio_url TEXT,
-    audio_duration REAL,
-    aspect_ratio TEXT,
-    caption_style TEXT,
-    caption_font TEXT,
-    particle_effect TEXT,
-    raw_data TEXT,
-    created_at TEXT,
-    updated_at TEXT
-  );
-
-  CREATE TABLE IF NOT EXISTS settings (
-    key TEXT PRIMARY KEY,
-    value TEXT
-  );
-`);
+    CREATE TABLE IF NOT EXISTS settings (
+      key TEXT PRIMARY KEY,
+      value TEXT
+    );
+  `);
+} catch (e) {
+  console.warn("Database initialization fallback active:", e);
+}
 
 export function getAllProjects(): Project[] {
   try {
